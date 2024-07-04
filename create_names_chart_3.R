@@ -1,18 +1,31 @@
 source("noms_cantons_wrangling.R")
 
-#title_fr <- "Prénoms les plus fréquents dans le canton de XXX"
+#title_fr <- "Noms les plus fréquents dans le canton de XXX"
 
 # Définir la liste des cantons et autres variables
-#list_cantons <- c("AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TG", "TI", "UR", "VD", "VS", "ZG", "ZH")
-list_cantons <- c("AG", "AI","AR")
-modeles_cantons <- "zeR1n"
-folder_id_fr_name_cantons <- "249627"
+list_cantons <- c("AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TG", "TI", "UR", "VD", "VS", "ZG", "ZH")
+
+#FR
+#modeles_cantons <- "zeR1n
+#folder_id_fr_name_cantons <- "25119"
+
+
+#DE
+#modeles_cantons <- "kQi1g"
+#folder_id_fr_name_cantons <- "251194"
+
+
+#IT
+modeles_cantons <- "5xxIJ"
+folder_id_fr_name_cantons <- "251208"
 
 
 #File with id
 chart_ids <- data.frame(canton = character(), ID = character(), stringsAsFactors = FALSE)
 new_entry <- data.frame(canton = character(), ID = character(), stringsAsFactors = FALSE)
 
+#Import chart_ids
+#chart_ids <- read_csv("chart_ids_fr.csv")
 
 create_or_update_canton_chart <- function(selected_canton) {
   
@@ -43,7 +56,7 @@ create_or_update_canton_chart <- function(selected_canton) {
       
       new_chart_id <- new_chart$id
       
-      title <- excuse_my_french_title(selected_canton)
+      title <- excuse_my_title(selected_canton, cantons_full_name,"it")
       
       dw_edit_chart(chart_id = new_chart_id,
                     title = title,
@@ -54,9 +67,6 @@ create_or_update_canton_chart <- function(selected_canton) {
       dw_publish_chart(chart_id = new_chart_id)
       
       chart_ids <<- bind_rows(chart_ids, data.frame(canton = selected_canton, ID = new_chart_id, stringsAsFactors = FALSE))
-      
-      #new_entry <- data.frame(canton = selected_canton, ID = new_chart_id, stringsAsFactors = FALSE)
-      #chart_ids <- rbind(chart_ids, new_entry)  # Save new chart id
       
       print(paste("Added chart for canton:", selected_canton, "with ID:", new_chart_id))
     }
@@ -71,6 +81,7 @@ for (canton in list_cantons) {
   create_or_update_canton_chart(canton)
 }
 
+write_csv(chart_ids, "chart_ids_it.csv")
 
 ##Fichier récapitulatif
 chart_summary <- data.frame("",
@@ -111,5 +122,4 @@ for (i in 1:nrow(chart_ids)) {
   chart_summary <- rbind(chart_summary, new_entry)
 }
 
-# Afficher chart_ids pour vérifier les résultats
-print(chart_ids)
+write_xlsx(chart_summary, "excel_summaries/chart_summary_it.xlsx")
