@@ -33,12 +33,17 @@
 [8] &[21]: adapter avec J_2023
 [40]/[49]: adapter noms de fichiers à la fonction choisie
 
-10.Charger manual_charts_summary.R?
+10. Charger map_top.R
+- actualiser avec le nouveau fichier
+- OFS: https://www.bfs.admin.ch/bfs/fr/home/statistiques/population/naissances-deces/noms-suisse.assetdetail.26925059.html
+- exécuter le code puis commit push
+
+11.Charger manual_charts_summary.R?
   -normalement pas nécessaire si titres graphiques pas modifiés
 
-11.Charger /excel_summaries/merge_summaries.R
+12.Charger /excel_summaries/merge_summaries.R
 - exécuter le code
 
-12.Ouvrir le projet selfpick
+13.Ouvrir le projet selfpick
 - ouvrir le fichier names_swi_2024.R et exécuter le code
 - republish selfpick
